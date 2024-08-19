@@ -214,8 +214,7 @@
       (= 429 status) ;; TODO I can't find the retry-after header, so just waiting one second
       (do
         (js/console.log "Received a 429, retrying for reattempt number" (inc (:attempts options))) ;; TODO I should probably look at how long I'm supposed to wait, theres a retry-after (seconds) header
-        {:fx [[:dispatch-later {:ms 1000 :dispatch [::http-request (update options :attempts inc)]}]]}
-        :else)
+        {:fx [[:dispatch-later {:ms 1000 :dispatch [::http-request (update options :attempts inc)]}]]})
       :else
       (do
         (cljs.pprint/pprint {::failure-http-result result
